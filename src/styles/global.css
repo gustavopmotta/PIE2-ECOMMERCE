@@ -1,0 +1,260 @@
+/* Tokens e estilos de base, usados na loja e no painel. */
+:root {
+  --primary: #1a1a1a;
+  --primary-hover: #3d3d3d;
+  --accent: #1f4d3a;
+  --ink: #1a1a1a;
+  --muted: #6b6b6b;
+  --soft: #f4f4f2;
+  --soft-bg: #f4f4f2;
+  --white: #ffffff;
+  --line: #e0e0dc;
+  --green: #1f6b47;
+  --red: #b3261e;
+
+  --font-display: 'Nunito Sans', system-ui, sans-serif;
+  --font-body: 'Nunito Sans', system-ui, sans-serif;
+
+  --radius: 2px;
+  --radius-small: 2px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+dl,
+dd {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.container {
+  width: min(100% - 2rem, 72rem);
+  margin-inline: auto;
+}
+
+/* Marca */
+.logo {
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: 0.22em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* Botões */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0 1.1rem;
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-small);
+  background: var(--primary);
+  color: var(--white);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  transition: background-color 0.15s;
+}
+
+.button:hover:not(:disabled) {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.button--ghost {
+  background: transparent;
+  color: var(--primary);
+}
+
+.button--ghost:hover:not(:disabled) {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+}
+
+.button--full {
+  width: 100%;
+}
+
+.icon-button {
+  display: inline-grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  border-radius: var(--radius-small);
+  background: transparent;
+  color: var(--muted);
+}
+
+.icon-button:hover {
+  background: #fbe9e7;
+  color: var(--red);
+}
+
+/* Formulários */
+.form {
+  display: grid;
+  gap: 1rem;
+}
+
+.form label {
+  display: grid;
+  gap: 0.35rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.form input,
+.form select {
+  min-height: 2.75rem;
+  padding: 0 0.75rem;
+  border: 1px solid #b9b9b4;
+  border-radius: var(--radius-small);
+  background: var(--white);
+  font-size: 1rem;
+  width: 100%;
+}
+
+.form input:focus,
+.form select:focus {
+  border-color: var(--primary);
+}
+
+.form__error {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--red);
+  font-weight: 500;
+}
+
+/* Seletor de quantidade */
+.stepper {
+  display: inline-grid;
+  grid-template-columns: 2.75rem 2.5rem 2.75rem;
+  align-items: center;
+  height: 2.75rem;
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-small);
+  background: var(--white);
+  text-align: center;
+  font-weight: 600;
+}
+
+.stepper button {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--primary);
+}
+
+.stepper button:hover:not(:disabled) {
+  background: var(--soft);
+}
+
+.stepper button:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+/* Imagem do produto (ou um espaço neutro enquanto não há foto) */
+.tile {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  background: var(--soft);
+  color: #a9a9a3;
+  overflow: hidden;
+}
+
+.tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.tile--small {
+  width: 5rem;
+  flex: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
