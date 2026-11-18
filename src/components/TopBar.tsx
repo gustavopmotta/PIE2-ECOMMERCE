@@ -9,7 +9,6 @@ const icons: Record<SocialId, Icon> = {
   tiktok: TiktokLogoIcon,
 }
 
-// Faixa acima do cabeçalho: redes sociais e acesso do administrador.
 export default function TopBar() {
   return (
     <div className="topbar">

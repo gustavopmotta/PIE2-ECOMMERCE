@@ -41,7 +41,7 @@ export default function AdminLayout() {
             <SignOutIcon size={20} aria-hidden />
             Sair
           </button>
-          <p className="admin__user">{user?.email}</p>
+          <p className="admin__user">Conectado como {user?.login}</p>
         </div>
       </aside>
       <main className="admin__main">

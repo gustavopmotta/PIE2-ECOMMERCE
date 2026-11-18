@@ -19,7 +19,7 @@ export default function Products() {
       description: form.description.trim(),
       category: form.category,
       price: Number(form.price),
-      stock: Math.floor(Number(form.stock)),
+      stock: form.stock === '' ? undefined : Math.max(0, Math.floor(Number(form.stock))),
       active: true,
       image: form.image.trim() || undefined,
     })
@@ -70,8 +70,15 @@ export default function Products() {
             <input type="number" min="0.01" step="0.01" required value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} />
           </label>
           <label>
-            Estoque
-            <input type="number" min="0" step="1" required value={form.stock} onChange={(e) => setForm({ ...form, stock: e.target.value })} />
+            Estoque (opcional)
+            <input
+              type="number"
+              min="0"
+              step="1"
+              placeholder="Sob encomenda"
+              value={form.stock}
+              onChange={(e) => setForm({ ...form, stock: e.target.value })}
+            />
           </label>
           <button type="submit" className="button form__submit">
             Salvar produto
@@ -84,52 +91,63 @@ export default function Products() {
       ) : products.length === 0 ? (
         <p className="panel panel__empty">Nenhum produto cadastrado. Adicione o primeiro para ele aparecer no catálogo.</p>
       ) : (
-        <div className="table-wrap">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Produto</th>
-                <th>Categoria</th>
-                <th className="num">Preço</th>
-                <th className="num">Estoque</th>
-                <th>No catálogo</th>
-                <th>
-                  <span className="sr-only">Ações</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((p) => (
-                <tr key={p.id}>
-                  <td>{p.name}</td>
-                  <td>{categoryLabel(p.category)}</td>
-                  <td className="num">{formatPrice(p.price)}</td>
-                  <td className="num">
-                    <input
-                      className="table__stock"
-                      type="number"
-                      min="0"
-                      aria-label={`Estoque de ${p.name}`}
-                      value={p.stock}
-                      onChange={(e) => updateProduct(p.id, { stock: Math.max(0, Math.floor(Number(e.target.value))) })}
-                    />
-                  </td>
-                  <td>
-                    <label className="switch">
-                      <input type="checkbox" checked={p.active} onChange={(e) => updateProduct(p.id, { active: e.target.checked })} />
-                      <span>{p.active ? 'Visível' : 'Oculto'}</span>
-                    </label>
-                  </td>
-                  <td className="num">
-                    <button type="button" className="icon-button" onClick={() => handleRemove(p.id, p.name)} aria-label={`Excluir ${p.name}`}>
-                      <TrashIcon size={20} />
-                    </button>
-                  </td>
+        <>
+          <p className="admin__hint">
+            Deixe o estoque em branco para produtos feitos sob encomenda: eles ficam sempre disponíveis. Com um número, a
+            loja avisa quando restam poucos e marca como esgotado no zero.
+          </p>
+          <div className="table-wrap">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Produto</th>
+                  <th>Categoria</th>
+                  <th className="num">Preço</th>
+                  <th className="num">Estoque</th>
+                  <th>No catálogo</th>
+                  <th>
+                    <span className="sr-only">Ações</span>
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {products.map((p) => (
+                  <tr key={p.id}>
+                    <td>{p.name}</td>
+                    <td>{categoryLabel(p.category)}</td>
+                    <td className="num">{formatPrice(p.price)}</td>
+                    <td className="num">
+                      <input
+                        className="table__stock"
+                        type="number"
+                        min="0"
+                        aria-label={`Estoque de ${p.name}`}
+                        placeholder="—"
+                        value={p.stock ?? ''}
+                        onChange={(e) =>
+                          updateProduct(p.id, {
+                            stock: e.target.value === '' ? undefined : Math.max(0, Math.floor(Number(e.target.value))),
+                          })
+                        }
+                      />
+                    </td>
+                    <td>
+                      <label className="switch">
+                        <input type="checkbox" checked={p.active} onChange={(e) => updateProduct(p.id, { active: e.target.checked })} />
+                        <span>{p.active ? 'Visível' : 'Oculto'}</span>
+                      </label>
+                    </td>
+                    <td className="num">
+                      <button type="button" className="icon-button" onClick={() => handleRemove(p.id, p.name)} aria-label={`Excluir ${p.name}`}>
+                        <TrashIcon size={20} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
     </>
   )

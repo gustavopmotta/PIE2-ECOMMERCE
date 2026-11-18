@@ -1,5 +1,4 @@
-// O WhatsApp é o do site original. Instagram, Facebook e TikTok ainda
-// apontam para a página inicial de cada rede: troque pelos perfis reais.
+// TODO: colocar os links dos perfis
 export const socialLinks = [
   { id: 'instagram', label: 'Instagram', href: 'https://instagram.com/' },
   { id: 'whatsapp', label: 'WhatsApp', href: 'https://wa.me/5575999067611' },

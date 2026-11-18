@@ -1,25 +1,28 @@
-// Leitura e escrita no localStorage que não quebram se ele estiver indisponível.
-export function readStorage<T>(key: string, fallback: T): T {
+type StorageKind = 'local' | 'session'
+
+const storageFor = (kind: StorageKind) => (kind === 'session' ? window.sessionStorage : window.localStorage)
+
+export function readStorage<T>(key: string, fallback: T, kind: StorageKind = 'local'): T {
   try {
-    const raw = localStorage.getItem(key)
+    const raw = storageFor(kind).getItem(key)
     return raw ? (JSON.parse(raw) as T) : fallback
   } catch {
     return fallback
   }
 }
 
-export function writeStorage(key: string, value: unknown) {
+export function writeStorage(key: string, value: unknown, kind: StorageKind = 'local') {
   try {
-    localStorage.setItem(key, JSON.stringify(value))
+    storageFor(kind).setItem(key, JSON.stringify(value))
   } catch {
-    // sem armazenamento: o estado vive só na memória
+    // ignora
   }
 }
 
-export function removeStorage(key: string) {
+export function removeStorage(key: string, kind: StorageKind = 'local') {
   try {
-    localStorage.removeItem(key)
+    storageFor(kind).removeItem(key)
   } catch {
-    // nada a fazer
+    // ignora
   }
 }

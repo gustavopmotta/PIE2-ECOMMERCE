@@ -5,25 +5,39 @@ import { readStorage, removeStorage, writeStorage } from '../utils/storage.ts'
 
 interface AuthContextValue {
   user: AdminUser | null
-  login: (email: string, password: string) => Promise<void>
+  login: (username: string, password: string) => Promise<void>
   logout: () => void
 }
 
-const STORAGE_KEY = 'iupe:admin'
+interface Session {
+  user: AdminUser
+  expiresAt: number
+}
+
+// a sessão acaba ao fechar o navegador ou depois de 8 horas
+const STORAGE_KEY = 'iupe:admin-session'
+const SESSION_MS = 8 * 60 * 60 * 1000
+
+function loadSession() {
+  const session = readStorage<Session | null>(STORAGE_KEY, null, 'session')
+  if (!session || session.expiresAt < Date.now()) return null
+  return session.user
+}
+
 const AuthContext = createContext<AuthContextValue | null>(null)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<AdminUser | null>(() => readStorage<AdminUser | null>(STORAGE_KEY, null))
+  const [user, setUser] = useState<AdminUser | null>(loadSession)
 
-  async function login(email: string, password: string) {
-    const admin = await loginAdmin(email, password)
+  async function login(username: string, password: string) {
+    const admin = await loginAdmin(username, password)
     setUser(admin)
-    writeStorage(STORAGE_KEY, admin)
+    writeStorage(STORAGE_KEY, { user: admin, expiresAt: Date.now() + SESSION_MS }, 'session')
   }
 
   function logout() {
     setUser(null)
-    removeStorage(STORAGE_KEY)
+    removeStorage(STORAGE_KEY, 'session')
   }
 
   return <AuthContext.Provider value={{ user, login, logout }}>{children}</AuthContext.Provider>

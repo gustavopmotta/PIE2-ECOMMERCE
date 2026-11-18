@@ -31,7 +31,6 @@ export default function Catalog() {
 
   return (
     <>
-      {/* Para usar uma foto no banner: style={{ backgroundImage: 'url(/banner.jpg)' }} */}
       {showHero && (
         <section className="hero">
           <h1>Canecas para quem joga</h1>

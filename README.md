@@ -1,57 +1,47 @@
-# Iupe — front-end da loja
+# Iupe
 
-Front-end de e-commerce em **Vite + React + TypeScript**, com **React Router** e ícones **Phosphor**.
-Produtos, preços e fotos vêm do site original (iupicanecas.com.br); pedidos, estoque e login são fictícios até a API ficar pronta.
+Front-end da loja Iupe. Feito com Vite, React, TypeScript, React Router e Phosphor Icons.
 
-## Como rodar
+Ainda não tem backend: o catálogo vem de `src/data/products.ts` e os pedidos ficam salvos no navegador (localStorage).
+
+## Rodando
 
 ```bash
 npm install
-npm run dev      # abre em http://localhost:5173
-npm run build    # gera a versão de produção em dist/
+npm run dev
 ```
+
+Abre em http://localhost:5173. Para gerar a versão de produção: `npm run build`.
 
 ## Rotas
 
-| Rota | O que é |
-| --- | --- |
-| `/` | Catálogo (busca, categorias em `/?categoria=gamer`, ordenação) |
-| `/carrinho` | Carrinho. Registra o pedido, **não processa pagamento** |
-| `/admin/login` | Login do administrador |
-| `/admin` | Dashboard: visão geral (protegido) |
-| `/admin/produtos` | Adicionar, ocultar, excluir produtos e ajustar estoque |
-| `/admin/pedidos` | Lista de pedidos |
+- `/` catálogo; ao adicionar um produto, o cliente escolhe a quantidade e vai para o carrinho
+- `/carrinho` carrinho: o cliente informa nome e celular e registra o pedido (não processa pagamento)
+- `/admin/login` login do administrador
+- `/admin` visão geral
+- `/admin/produtos` produtos e estoque (em branco = sob encomenda)
+- `/admin/pedidos` pedidos, com contato pelo WhatsApp e situação
 
-Login de demonstração: `admin@iupe.com` / `iupe123` (definido em `src/services/api.ts`).
+Login do painel: usuário `admin`, senha `iupe123`. Para trocar, edite `src/data/admin.ts`.
+A sessão termina ao clicar em Sair, ao fechar o navegador ou depois de 8 horas.
 
-## Pastas
+## Estrutura
 
 ```
 src/
-├── components/   peças reutilizáveis (TopBar, Header, ProductCard, layouts, rota protegida)
-├── pages/        uma página por rota; pages/admin/ para o painel
-├── context/      estado global: login, produtos e carrinho
-├── services/     api.ts — único ponto de acesso a dados
-├── data/         dados fictícios (produtos, pedidos, redes sociais, categorias)
-├── styles/       global.css (cores e base), store.css, admin.css
-├── types/        tipos TypeScript
-└── utils/        formatação de preço/data e localStorage
+  components/   componentes e layouts
+  pages/        páginas (admin em pages/admin)
+  context/      login, produtos e carrinho
+  services/     acesso a dados (api.ts)
+  data/         catálogo, categorias e redes sociais
+  styles/       css
+  types/
+  utils/
 ```
 
-## Onde mexer
+## Pendências
 
-- **Redes sociais** (faixa do topo): `src/data/social.ts`
-- **Produtos e categorias**: `src/data/products.ts` e `src/data/categories.ts`
-- **Cores e fontes**: variáveis no início de `src/styles/global.css`
-- **Logo**: `src/components/Logo.tsx`
-- **Fotos dos produtos**: coloque os arquivos em `public/produtos/` e preencha o campo `image` de cada produto (ex.: `image: '/produtos/panela.jpg'`). Sem foto, aparece um espaço cinza
-- **Banner da página inicial**: `src/pages/Catalog.tsx`; dá para usar uma foto de fundo (`public/banner.jpg`)
-
-## Ligando a API depois
-
-Troque o corpo das funções de `src/services/api.ts` por chamadas `fetch`. As páginas e
-contextos só conversam com esse arquivo. O login atual é apenas demonstração: a
-validação de verdade precisa ser feita no backend.
-
-As alterações feitas no painel e o carrinho ficam salvos no `localStorage` do navegador.
-Para voltar aos dados originais, limpe os dados do site no navegador.
+- Integrar com a API (`src/services/api.ts`). Enquanto isso, um pedido só aparece no painel aberto no mesmo navegador em que foi feito
+- Autenticação real
+- Links das redes sociais (`src/data/social.ts`)
+- Hospedar as fotos dos produtos no próprio projeto

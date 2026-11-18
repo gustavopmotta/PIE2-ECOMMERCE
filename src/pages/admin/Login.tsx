@@ -3,7 +3,6 @@ import { useState, type FormEvent } from 'react'
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import Logo from '../../components/Logo.tsx'
 import { useAuth } from '../../context/AuthContext.tsx'
-import { DEMO_ADMIN } from '../../services/api.ts'
 
 export default function Login() {
   const { user, login } = useAuth()
@@ -11,7 +10,7 @@ export default function Login() {
   const location = useLocation()
   const from = (location.state as { from?: string } | null)?.from ?? '/admin'
 
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [sending, setSending] = useState(false)
@@ -23,7 +22,7 @@ export default function Login() {
     setError('')
     setSending(true)
     try {
-      await login(email, password)
+      await login(username, password)
       navigate(from, { replace: true })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Não foi possível entrar. Tente de novo.')
@@ -45,8 +44,15 @@ export default function Login() {
 
         <form onSubmit={handleSubmit} className="form">
           <label>
-            E-mail
-            <input type="email" autoComplete="username" required value={email} onChange={(e) => setEmail(e.target.value)} />
+            Usuário
+            <input
+              autoComplete="username"
+              autoCapitalize="none"
+              spellCheck={false}
+              required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
           </label>
           <label>
             Senha
@@ -62,10 +68,6 @@ export default function Login() {
             {sending ? 'Entrando…' : 'Entrar'}
           </button>
         </form>
-
-        <p className="login__demo">
-          Acesso de demonstração: <strong>{DEMO_ADMIN.email}</strong> e senha <strong>{DEMO_ADMIN.password}</strong>
-        </p>
       </main>
     </div>
   )

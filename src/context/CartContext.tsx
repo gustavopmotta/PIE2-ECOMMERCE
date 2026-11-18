@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 import type { CartItem, Product } from '../types/index.ts'
+import { stockLimit } from '../utils/stock.ts'
 import { readStorage, writeStorage } from '../utils/storage.ts'
 import { useProducts } from './ProductsContext.tsx'
 
@@ -30,10 +31,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
     writeStorage(STORAGE_KEY, items)
   }, [items])
 
-  // Junta os itens com os produtos atuais; ignora o que saiu do catálogo.
   const lines: CartLine[] = items.flatMap((item) => {
     const product = products.find((p) => p.id === item.productId && p.active)
-    return product ? [{ product, quantity: Math.min(item.quantity, product.stock) }] : []
+    return product ? [{ product, quantity: Math.min(item.quantity, stockLimit(product)) }] : []
   }).filter((line) => line.quantity > 0)
 
   const count = lines.reduce((sum, line) => sum + line.quantity, 0)
@@ -44,8 +44,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }
 
   function setQuantity(productId: string, quantity: number) {
-    const stock = products.find((p) => p.id === productId)?.stock ?? 0
-    const next = Math.max(0, Math.min(quantity, stock))
+    const product = products.find((p) => p.id === productId)
+    const next = Math.max(0, Math.min(quantity, product ? stockLimit(product) : 0))
     setItems((current) => {
       const others = current.filter((item) => item.productId !== productId)
       if (next === 0) return others

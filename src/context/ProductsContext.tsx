@@ -11,8 +11,7 @@ interface ProductsContextValue {
   removeProduct: (id: string) => void
 }
 
-// As alterações do admin ficam salvas no navegador até a API existir.
-const STORAGE_KEY = 'iupe:products:v2'
+const STORAGE_KEY = 'iupe:products:v3'
 const ProductsContext = createContext<ProductsContextValue | null>(null)
 
 export function ProductsProvider({ children }: { children: ReactNode }) {
