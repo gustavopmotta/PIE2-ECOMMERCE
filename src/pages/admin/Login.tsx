@@ -2,6 +2,7 @@ import { ArrowLeftIcon, WarningCircleIcon } from '@phosphor-icons/react'
 import { useState, type FormEvent } from 'react'
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import Logo from '../../components/Logo.tsx'
+import MugIllustration from '../../components/MugIllustration.tsx'
 import { useAuth } from '../../context/AuthContext.tsx'
 
 export default function Login() {
@@ -32,13 +33,15 @@ export default function Login() {
 
   return (
     <div className="login">
-      <div className="login__pattern" aria-hidden />
+      <div className="login__pattern" aria-hidden>
+        <Logo />
+        <MugIllustration />
+      </div>
       <main className="login__panel">
         <Link to="/" className="login__back">
           <ArrowLeftIcon size={18} aria-hidden />
           Voltar para a loja
         </Link>
-        <Logo />
         <h1>Entrar no painel</h1>
         <p className="login__lead">Acesso só para quem administra a loja.</p>
 

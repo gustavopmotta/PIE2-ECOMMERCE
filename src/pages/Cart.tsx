@@ -1,6 +1,7 @@
-import { CheckCircleIcon, CheckIcon, InfoIcon, TrashIcon } from '@phosphor-icons/react'
+import { CheckIcon, InfoIcon, TrashIcon } from '@phosphor-icons/react'
 import { useRef, useState, type FormEvent } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import MugIllustration from '../components/MugIllustration.tsx'
 import ProductTile from '../components/ProductTile.tsx'
 import QuantityStepper from '../components/QuantityStepper.tsx'
 import { useCart } from '../context/CartContext.tsx'
@@ -71,10 +72,12 @@ export default function Cart() {
     const firstName = order.customer.split(' ')[0]
     return (
       <div className="empty">
-        <CheckCircleIcon size={48} weight="duotone" className="empty__icon" aria-hidden />
+        <span className="empty__badge" aria-hidden>
+          <CheckIcon size={44} weight="bold" />
+        </span>
         <h1>Pedido #{order.id} registrado</h1>
         <p>
-          Obrigado, {firstName}! A loja vai entrar em contato pelo {formatPhone(order.phone)} para combinar
+          Obrigado, {firstName}! A loja vai entrar em contato pelo <span className="nowrap">{formatPhone(order.phone)}</span> para combinar
           pagamento e entrega. Nenhum valor foi cobrado.
         </p>
         <Link to="/" className="button">
@@ -87,6 +90,7 @@ export default function Cart() {
   if (lines.length === 0) {
     return (
       <div className="empty">
+        <MugIllustration className="empty__art" />
         <h1>Seu carrinho está vazio</h1>
         <p>Escolha produtos no catálogo e eles aparecem aqui.</p>
         <Link to="/" className="button">
