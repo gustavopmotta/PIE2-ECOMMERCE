@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
+import MugIllustration from '../components/MugIllustration.tsx'
 import ProductCard from '../components/ProductCard.tsx'
 import { useProducts } from '../context/ProductsContext.tsx'
 import { categories } from '../data/categories.ts'
@@ -33,11 +34,14 @@ export default function Catalog() {
     <>
       {showHero && (
         <section className="hero">
-          <h1>Canecas para quem joga</h1>
-          <p>Canecas gamer e geek para o café de todo dia.</p>
-          <a href="#catalogo" className="button">
-            Ver produtos
-          </a>
+          <div className="hero__text">
+            <h1>Canecas para quem joga</h1>
+            <p>Canecas gamer e geek para o café de todo dia.</p>
+            <a href="#catalogo" className="button">
+              Ver produtos
+            </a>
+          </div>
+          <MugIllustration className="hero__art" />
         </section>
       )}
 

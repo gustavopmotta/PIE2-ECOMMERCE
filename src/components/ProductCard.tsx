@@ -22,7 +22,7 @@ export default function ProductCard({ product }: { product: Product }) {
         <h3 className="product__name">{product.name}</h3>
         {product.description && <p className="product__description">{product.description}</p>}
         <p className="product__price">
-          {product.priceFrom && 'a partir de '}
+          {product.priceFrom && <span className="product__from">a partir de</span>}
           {formatPrice(product.price)}
         </p>
         {product.stock !== undefined && product.stock > 0 && product.stock <= 5 && (
@@ -42,7 +42,8 @@ export default function ProductCard({ product }: { product: Product }) {
         ) : (
           <button type="button" className="button button--ghost" aria-haspopup="dialog" onClick={() => setChoosing(true)}>
             <ShoppingCartIcon size={18} aria-hidden />
-            Adicionar ao carrinho
+            {'Adicionar'}
+            <span className="product__more"> ao carrinho</span>
           </button>
         )}
       </div>

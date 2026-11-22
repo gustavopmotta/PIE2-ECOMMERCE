@@ -1,21 +1,27 @@
 :root {
-  --primary: #1a1a1a;
-  --primary-hover: #3d3d3d;
-  --accent: #1f4d3a;
-  --ink: #1a1a1a;
-  --muted: #6b6b6b;
-  --soft: #f4f4f2;
-  --soft-bg: #f4f4f2;
+  --purple: #5d17eb;
+  --purple-dark: #4510b8;
+  --purple-soft: #efe8ff;
+  --yellow: #ffde59;
+  --yellow-dark: #f5c518;
+  --ink: #1e0f45;
+  --muted: #5f5680;
+  --page: #f7f3ff;
   --white: #ffffff;
-  --line: #e0e0dc;
-  --green: #1f6b47;
-  --red: #b3261e;
+  --line: #ddd3f5;
+  --green: #187a4a;
+  --green-soft: #dcf5e7;
+  --red: #c4271b;
+  --red-soft: #ffe4e0;
 
-  --font-display: 'Nunito Sans', system-ui, sans-serif;
-  --font-body: 'Nunito Sans', system-ui, sans-serif;
+  --font-display: 'Lilita One', 'Nunito Variable', system-ui, sans-serif;
+  --font-body: 'Nunito Variable', system-ui, sans-serif;
 
-  --radius: 2px;
-  --radius-small: 2px;
+  --border: 2.5px solid var(--ink);
+  --shadow: 4px 4px 0 var(--ink);
+  --shadow-small: 3px 3px 0 var(--ink);
+  --radius: 18px;
+  --radius-small: 12px;
 }
 
 *,
@@ -26,7 +32,7 @@
 
 body {
   margin: 0;
-  background: var(--white);
+  background: var(--page);
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 1rem;
@@ -54,9 +60,9 @@ ol {
 h1,
 h2 {
   font-family: var(--font-display);
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: 0;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
 }
 
 a {
@@ -75,8 +81,8 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--ink);
-  outline-offset: 2px;
+  outline: 3px solid var(--purple);
+  outline-offset: 3px;
 }
 
 .sr-only {
@@ -88,6 +94,10 @@ button {
   white-space: nowrap;
 }
 
+.nowrap {
+  white-space: nowrap;
+}
+
 .container {
   width: min(100% - 2rem, 72rem);
   margin-inline: auto;
@@ -95,12 +105,15 @@ button {
 
 /* Marca */
 .logo {
-  font-weight: 800;
-  font-size: 1.5rem;
-  letter-spacing: 0.22em;
+  font-family: var(--font-display);
+  font-size: 2.1rem;
   line-height: 1;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--yellow);
+  -webkit-text-stroke: 1.5px var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 3px 3px 0 var(--ink);
 }
 
 /* Botões */
@@ -109,38 +122,43 @@ button {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  min-height: 2.75rem;
-  padding: 0 1.1rem;
-  border: 1px solid var(--primary);
+  min-height: 2.9rem;
+  padding: 0 1.2rem;
+  border: var(--border);
   border-radius: var(--radius-small);
-  background: var(--primary);
+  background: var(--purple);
   color: var(--white);
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
+  box-shadow: var(--shadow-small);
+  font-weight: 800;
   text-decoration: none;
-  transition: background-color 0.15s;
+  transition:
+    transform 0.08s,
+    box-shadow 0.08s,
+    background-color 0.15s;
 }
 
 .button:hover:not(:disabled) {
-  background: var(--primary-hover);
-  border-color: var(--primary-hover);
+  background: var(--purple-dark);
+}
+
+.button:active:not(:disabled) {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--ink);
 }
 
 .button:disabled {
   cursor: not-allowed;
-  opacity: 0.55;
+  opacity: 0.5;
+  box-shadow: none;
 }
 
 .button--ghost {
-  background: transparent;
-  color: var(--primary);
+  background: var(--white);
+  color: var(--ink);
 }
 
 .button--ghost:hover:not(:disabled) {
-  background: var(--primary);
-  color: var(--white);
-  border-color: var(--primary);
+  background: var(--yellow);
 }
 
 .button--full {
@@ -152,14 +170,15 @@ button {
   place-items: center;
   width: 2.75rem;
   height: 2.75rem;
-  border: 0;
+  border: 2px solid transparent;
   border-radius: var(--radius-small);
   background: transparent;
   color: var(--muted);
 }
 
 .icon-button:hover {
-  background: #fbe9e7;
+  border-color: var(--ink);
+  background: var(--red-soft);
   color: var(--red);
 }
 
@@ -172,24 +191,29 @@ button {
 .form label {
   display: grid;
   gap: 0.35rem;
-  font-weight: 500;
+  font-weight: 700;
   font-size: 0.95rem;
 }
 
 .form input,
 .form select {
-  min-height: 2.75rem;
-  padding: 0 0.75rem;
-  border: 1px solid #b9b9b4;
+  width: 100%;
+  min-height: 2.9rem;
+  padding: 0 0.85rem;
+  border: 2px solid var(--ink);
   border-radius: var(--radius-small);
   background: var(--white);
   font-size: 1rem;
-  width: 100%;
+}
+
+.form input::placeholder {
+  color: var(--muted);
+  opacity: 0.7;
 }
 
 .form input:focus,
 .form select:focus {
-  border-color: var(--primary);
+  border-color: var(--purple);
 }
 
 .form__error {
@@ -197,7 +221,7 @@ button {
   align-items: center;
   gap: 0.4rem;
   color: var(--red);
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .field {
@@ -207,11 +231,12 @@ button {
 
 .form input[aria-invalid='true'] {
   border-color: var(--red);
+  background: #fff8f7;
 }
 
 .field__error {
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 700;
   color: var(--red);
 }
 
@@ -220,12 +245,13 @@ button {
   display: inline-grid;
   grid-template-columns: 2.75rem 2.5rem 2.75rem;
   align-items: center;
-  height: 2.75rem;
-  border: 1px solid var(--primary);
+  height: 2.9rem;
+  border: var(--border);
   border-radius: var(--radius-small);
   background: var(--white);
+  overflow: hidden;
   text-align: center;
-  font-weight: 600;
+  font-weight: 800;
 }
 
 .stepper button {
@@ -234,16 +260,21 @@ button {
   height: 100%;
   border: 0;
   background: transparent;
-  color: var(--primary);
+  color: var(--purple);
 }
 
 .stepper button:hover:not(:disabled) {
-  background: var(--soft);
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+.stepper button:focus-visible {
+  outline-offset: -4px;
 }
 
 .stepper button:disabled {
   cursor: not-allowed;
-  opacity: 0.35;
+  opacity: 0.3;
 }
 
 /* Imagem do produto */
@@ -251,8 +282,8 @@ button {
   display: grid;
   place-items: center;
   aspect-ratio: 1;
-  background: var(--soft);
-  color: #a9a9a3;
+  background: var(--white);
+  color: var(--line);
   overflow: hidden;
 }
 
@@ -263,12 +294,91 @@ button {
 }
 
 .tile--small {
-  width: 5rem;
+  width: 4.75rem;
   flex: none;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius-small);
+}
+
+/* Ilustração da caneca */
+.mug {
+  --mug-body: var(--purple);
+  --mug-rim: var(--purple-dark);
+  --mug-print: var(--yellow);
+  --mug-spark: var(--white);
+  display: block;
+  height: auto;
+}
+
+.mug__shadow {
+  fill: var(--ink);
+  opacity: 0.15;
+}
+
+.mug__steam {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+
+.mug__handle-outline {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 30;
+  stroke-linecap: round;
+}
+
+.mug__handle {
+  fill: none;
+  stroke: var(--mug-body);
+  stroke-width: 17;
+  stroke-linecap: round;
+}
+
+.mug__body {
+  fill: var(--mug-body);
+  stroke: var(--ink);
+  stroke-width: 6;
+  stroke-linejoin: round;
+}
+
+.mug__rim {
+  fill: var(--mug-rim);
+  stroke: var(--ink);
+  stroke-width: 6;
+}
+
+.mug__coffee {
+  fill: #5b3214;
+}
+
+.mug__shine {
+  fill: #ffffff;
+  opacity: 0.35;
+}
+
+.mug__print {
+  fill: var(--mug-print);
+  stroke: var(--ink);
+  stroke-width: 4;
+  stroke-linejoin: round;
+}
+
+.mug__dot {
+  fill: var(--ink);
+}
+
+.mug__spark {
+  fill: var(--mug-spark);
+  stroke: var(--ink);
+  stroke-width: 3;
+  stroke-linejoin: round;
 }
 
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;
+    animation: none !important;
   }
 }
