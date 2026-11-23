@@ -1,1 +1,7 @@
 node_modules
+dist
+
+# variáveis de ambiente: ficam só no computador de cada um e na Vercel
+.env
+.env.*
+!.env.example
