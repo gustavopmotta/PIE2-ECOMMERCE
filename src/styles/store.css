@@ -372,11 +372,30 @@ html:has(.store) {
 }
 
 .product__action {
+  container-type: inline-size;
   padding: 0 1rem 1rem;
 }
 
 .product__action .button {
   width: 100%;
+  padding-inline: 0.9rem;
+}
+
+.product__label {
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* cartão estreito: o botão mostra só "Adicionar" e o leitor de tela continua ouvindo "Adicionar ao carrinho" */
+@container (max-width: 15.5rem) {
+  .product__more {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
 }
 
 /* Estados vazios e confirmações */
@@ -916,15 +935,6 @@ body:has(.dialog[open]) {
     min-height: 2.6rem;
     padding: 0 0.5rem;
     font-size: 0.9rem;
-  }
-
-  .product__more {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
   }
 
   .cart {

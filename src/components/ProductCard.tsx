@@ -34,8 +34,9 @@ export default function ProductCard({ product }: { product: Product }) {
         ) : (
           <button type="button" className="button button--ghost" aria-haspopup="dialog" onClick={() => setChoosing(true)}>
             <ShoppingCartIcon size={18} aria-hidden />
-            {'Adicionar'}
-            <span className="product__more"> ao carrinho</span>
+            <span className="product__label">
+              Adicionar<span className="product__more"> ao carrinho</span>
+            </span>
           </button>
         )}
       </div>
