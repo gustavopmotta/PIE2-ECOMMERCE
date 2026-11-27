@@ -31,7 +31,7 @@ export default function Header() {
   return (
     <header className="header">
       <div className="container header__inner">
-        <Link to="/" className="header__logo" aria-label="Iupe, página inicial">
+        <Link to="/" className="header__logo" aria-label="Iupi, página inicial">
           <Logo />
         </Link>
 

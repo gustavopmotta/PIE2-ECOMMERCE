@@ -1,6 +1,6 @@
-# Iupe
+# Iupi
 
-Front-end da loja Iupe. Feito com Vite, React, TypeScript, React Router e Phosphor Icons.
+Front-end da loja Iupi. Feito com Vite, React, TypeScript, React Router e Phosphor Icons.
 
 Os produtos, as contas, os pedidos e o estoque vêm da API do back-end (branch `backend`).
 

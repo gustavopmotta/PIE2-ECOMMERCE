@@ -21,7 +21,7 @@ interface CartContextValue {
   clear: () => void
 }
 
-const STORAGE_KEY = 'iupe:carrinho'
+const STORAGE_KEY = 'iupi:carrinho'
 const CartContext = createContext<CartContextValue | null>(null)
 
 export function CartProvider({ children }: { children: ReactNode }) {

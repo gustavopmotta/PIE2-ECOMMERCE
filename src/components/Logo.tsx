@@ -1,3 +1,3 @@
 export default function Logo() {
-  return <span className="logo">Iupe</span>
+  return <span className="logo">Iupi</span>
 }

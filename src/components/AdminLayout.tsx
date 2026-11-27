@@ -22,7 +22,7 @@ export default function AdminLayout() {
   return (
     <div className="admin">
       <aside className="admin__side">
-        <Link to="/admin" className="admin__logo" aria-label="Iupe, painel">
+        <Link to="/admin" className="admin__logo" aria-label="Iupi, painel">
           <Logo />
         </Link>
         <nav className="admin__nav" aria-label="Painel">

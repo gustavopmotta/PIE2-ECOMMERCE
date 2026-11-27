@@ -28,5 +28,5 @@ export function contactLink(order: Order) {
   const phone = order.customer?.phone
   if (!phone) return null
   const firstName = (order.customer?.name ?? '').split(' ')[0]
-  return whatsappLink(phone, `Olá, ${firstName}! Aqui é da Iupe, sobre o seu pedido #${order.id}.`)
+  return whatsappLink(phone, `Olá, ${firstName}! Aqui é da Iupi, sobre o seu pedido #${order.id}.`)
 }

@@ -18,7 +18,7 @@ interface Session {
 }
 
 // a sessão acaba ao fechar o navegador ou quando o token da API vence (8 horas)
-const STORAGE_KEY = 'iupe:sessao'
+const STORAGE_KEY = 'iupi:sessao'
 
 function tokenExpiry(token: string) {
   try {
